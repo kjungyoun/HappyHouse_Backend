@@ -47,7 +47,7 @@
 				<span class="ml-1"><a href="notice.jsp">공지사항</a></span>
 			</div>
 
-			<nav class="nav-menu d-none d-lg-block">
+			<nav class="nav-menu d-lg-block">
 				<ul>
 					<li class="active"><a href="index.jsp">Home</a></li>
 					<li><a href="#about">About Us</a></li>
@@ -60,7 +60,6 @@
 					<!-- 관리자가 로그인했을 때만 -->
 					<li><a id="admin-nav" href="userAdmin.jsp"
 						class="admin-nav font-weight-bold">Admin</a></li>
-
 
 				</ul>
 			</nav>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="root" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,8 +29,39 @@
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
+  <script>
+  	function updateProfile(){
+  		if($("#usernameU").val() == "") {
+			alert("이름 입력!!!");
+			return;
+		} else if($("#useridU").val() == "") {
+			alert("아이디 입력!!!");
+			return;
+		} else if($("#userpwdU").val() == "") {
+			alert("비밀번호 입력!!!");
+			return;
+		} else if($("#emailU").val() == "") {
+			alert("이메일 입력!!!");
+			return;
+		} else {
+			document.getElementById("updateform").action = "${root}/main";
+			document.getElementById("updateform").submit();
+		}
+  	}
+  	
+  	function moveDelete() {
+  		document.location.href = "${root}/main?action=delete";
+  	}
+  </script>
 </head>
 
+<c:if test="${userinfo eq null}">
+	<script>
+		alert("로그인이 필요한 페이지입니다.\n로그인 페이지로 이동합니다.");
+		location.href = "main";
+	</script>
+</c:if>
+<c:if test="${userinfo ne null}">
 <body>
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top">
@@ -40,7 +72,7 @@
         <span class="ml-1"><a href="notice.jsp">공지사항</a></span>
       </div>
 
-      <nav class="nav-menu d-none d-lg-block">
+      <nav class="nav-menu d-lg-block">
         <ul>
           <li class="active"><a href="index.jsp">Home</a></li>
           <li><a href="#about">About Us</a></li>
@@ -50,8 +82,9 @@
           <li><a id="logout-nav" class="logout-nav font-weight-bold">Logout</a></li>
           <li><a id="mypage-nav" href="mypage.jsp" class="mypage-nav font-weight-bold">MyPage</a></li>
           <!-- 관리자가 로그인했을 때만 -->
-          <li><a id="admin-nav" href="userAdmin.jsp" class="admin-nav font-weight-bold">Admin</a></li> 
-
+          <c:if test="${userinfo.userid eq 'admin'}">
+          	<li><a id="admin-nav" href="userAdmin.jsp" class="admin-nav font-weight-bold">Admin</a></li> 
+		</c:if>
 
         </ul>
       </nav><!-- .nav-menu -->
@@ -78,23 +111,19 @@
           <tbody>
             <tr>
               <th>아이디</th>
-              <td>ssafy12345</td>
+              <td>${userinfo.userid}</td>
             </tr>
             <tr>
               <th>비밀번호</th>
-              <td>***********</td>
+              <td>${userinfo.userpwd}</td>
             </tr>
             <tr>
               <th>이름</th>
-              <td>김싸피</td>
+              <td>${userinfo.username}</td>
             </tr>
             <tr>
               <th>이메일</th>
-              <td>ssafy12345@gmail.com</td>
-            </tr>
-            <tr>
-              <th>주소</th>
-              <td>서울특별시 강남구 역삼동 멀티캠퍼스</td>
+              <td>${userinfo.email}</td>
             </tr>
           </tbody>
         </table><hr>
@@ -117,7 +146,7 @@
             <div class="footer-info">
               <h3>HappyHouse</h3>
               <h5>ssafy 5th 서울 8반 </h5>
-              <h5>박재준 이서영</h5>
+              <h5>김정윤 이서영</h5>
             </div>
           </div>
 
@@ -150,39 +179,34 @@
         <div class="modal-body">
           <article class="card-body mx-auto" style="max-width: 400px;">
             <h4 class="card-title text-center mt-3">회원정보 수정</h4>
-            <form>
+            <form id="updateform" method="post" action="">
+            <input type="hidden" name="action" value="modify">
               <div class="form-group input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                 </div>
-                <input name="" class="form-control" value="ssafy12345" type="text">
+                <input id="useridU" name="userid" class="form-control" value="${userinfo.userid}" type="text">
               </div> <!-- form-group// -->
               <div class="form-group input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
                 </div>
-                <input class="form-control" value="***********" type="password">
+                <input  id="userpwdU" name="userpwd"  class="form-control" value="${userinfo.userpwd}" type="password">
               </div> <!-- form-group// -->
               <div class="form-group input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="far fa-smile"></i></span>
                 </div>
-                <input name="" class="form-control" value="김싸피" type="text">
+                <input id="usernameU" name="username" class="form-control" value="${userinfo.username}" type="text">
               </div> <!-- form-group// -->     
               <div class="form-group input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
                 </div>
-                <input name="" class="form-control" value="ssafy12345@gmail.com" type="email">
+                <input id="emailU" name="email" class="form-control" value="${userinfo.email}" type="email">
               </div> <!-- form-group// --> 
-              <div class="form-group input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-                </div>
-                <input name="" class="form-control" value="서울특별시 강남구 역삼동 멀티캠퍼스" type="address2">
-              </div> <!-- form-group// -->                              
               <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-block"> 수정하기 </button>
+                <button type="button" onclick="updateProfile();" class="btn btn-primary btn-block"> 수정하기 </button>
               </div> <!-- form-group// -->      
             </form>
           </article>
@@ -199,7 +223,7 @@
           <h5 class="text-center mt-3">정말 탈퇴하시겠습니까?</h5>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger logout-nav" onclick="location.href='index.jsp'">확인</button>
+          <button type="button" class="btn btn-danger logout-nav" onclick="moveDelete();">확인</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
         </div>
       </div>
@@ -225,5 +249,5 @@
   <script src="assets/js/user.js"></script>
 
 </body>
-
+</c:if>
 </html>

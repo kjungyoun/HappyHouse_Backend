@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBUtil {
-	static final String URL = "jdbc:mysql://127.0.0.1:3306/ssafyweb?serverTimezone=UTC&useUniCode=yes&characterEncoding=UTF-8";
+	static final String URL = "jdbc:mysql://127.0.0.1:3306/happyhouse?serverTimezone=UTC&useUniCode=yes&characterEncoding=UTF-8";
 	static final String DRIVER = "com.mysql.cj.jdbc.Driver";
 	static final String ID = "ssafy";
 	static final String PASSWORD = "ssafy";
@@ -22,13 +22,14 @@ public class DBUtil {
 		return DriverManager.getConnection(URL, ID, PASSWORD);
 	}
 
-	public static void close(AutoCloseable c) {
-		if (c != null) {
-			try {
-				c.close();
-			} catch (Exception e) {
-				e.printStackTrace();
+	public static void close(AutoCloseable... closeables) {
+		try {
+			for (AutoCloseable ac : closeables) {
+				if(ac != null)
+					ac.close();
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 

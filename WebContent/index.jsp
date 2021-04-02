@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="root" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,6 +29,43 @@
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
+  
+  <script type="text/javascript">
+	function login() {
+		if(document.getElementById("useridL").value == "") {
+			alert("아이디 입력!!!");
+			return;
+		} else if(document.getElementById("userpwdL").value == "") {
+			alert("비밀번호 입력!!!");
+			return;
+		} else {
+			document.getElementById("loginform").action = "${root}/main";
+			document.getElementById("loginform").submit();
+		}
+	}
+	function signup(){
+		if($("#username").val() == "") {
+			alert("이름 입력!!!");
+			return;
+		} else if($("#userid").val() == "") {
+			alert("아이디 입력!!!");
+			return;
+		} else if($("#userpwd").val() == "") {
+			alert("비밀번호 입력!!!");
+			return;
+		} else if($("#userpwd").val() != $("#pwdcheck").val()) {
+			alert("비밀번호 확인!!!");
+			return;
+		}else if($("#email").val() == "") {
+			alert("이메일 입력!!!");
+			return;
+		} else {
+			document.getElementById("signupform").action = "${root}/main";
+			document.getElementById("signupform").submit();
+		}
+	}
+	
+	</script>
 </head>
 
 <body>
@@ -40,20 +78,25 @@
         <span class="ml-1"><a href="notice.jsp">공지사항</a></span>
       </div>
 
-      <nav class="nav-menu d-none d-lg-block">
+      <nav class="nav-menu d-lg-block">
         <ul>
           <li class="active"><a href="index.jsp">Home</a></li>
           <li><a href="#about">About Us</a></li>
           <li><a href="#services">Services</a></li>
           <li><a href="#team">Team</a></li>
           
-          <li><a id="login-nav" href="" class="login-nav font-weight-bold" data-toggle="modal" data-target="#loginModal">Login</a></li>
-          <li><a id="signup-nav" href="" class="signup-nav font-weight-bold" data-toggle="modal" data-target="#signupModal">SignUp</a></li>
-          <li><a id="logout-nav" href="" class="logout-nav font-weight-bold d-none">Logout</a></li>
-          <li><a id="mypage-nav" href="mypage.jsp" class="mypage-nav font-weight-bold d-none">MyPage</a></li>
-          <!-- 관리자가 로그인했을 때만 -->
-          <li><a id="admin-nav" href="userAdmin.jsp" class="admin-nav font-weight-bold d-none">Admin</a></li> 
-
+          <c:if test="${userinfo eq null}">
+          	<li><a id="" href="" class="font-weight-bold" data-toggle="modal" data-target="#loginModal">Login</a></li>
+          	<li><a id="" href="" class="font-weight-bold" data-toggle="modal" data-target="#signupModal">SignUp</a></li>
+          </c:if>
+          <c:if test="${userinfo ne null}">
+	          <li><a id="" href="${root}/main?action=logout" class="font-weight-bold">Logout</a></li>
+	          <li><a id="" href="${root}/main?action=mvmypage" class="font-weight-bold">MyPage</a></li>
+	          <!-- 관리자가 로그인했을 때만 -->
+	          <c:if test="${userinfo.userid eq 'admin'}">
+	          	<li><a id="" href="${root}/main?action=memberList" class="font-weight-bold">Admin</a></li> 
+	          </c:if>
+		</c:if>
 
         </ul>
       </nav><!-- .nav-menu -->
@@ -485,52 +528,40 @@
         <div class="modal-body">
           <article class="card-body mx-auto" style="max-width: 400px;">
             <h4 class="card-title text-center mt-3">Create Account</h4>
-            <form>
+            <form id="signupform" action="" method="post">
+            <input type="hidden" name="action" value="register">
               <div class="form-group input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                 </div>
-                <input name="" class="form-control" placeholder="ID" type="text">
+                <input id = "userid" name="userid" class="form-control" placeholder="ID" type="text">
               </div> <!-- form-group// -->
               <div class="form-group input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
                 </div>
-                <input class="form-control" placeholder="Create password" type="password">
+                <input id = "userpwd" name="userpwd" class="form-control" placeholder="Create password" type="password">
               </div> <!-- form-group// -->
               <div class="form-group input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
                 </div>
-                <input class="form-control" placeholder="Repeat password" type="password">
+                <input id = "pwdcheck" name="pwdcheck" class="form-control" placeholder="Repeat password" type="password">
               </div> <!-- form-group// -->
               <div class="form-group input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"><i class="far fa-smile"></i></span>
                 </div>
-                <input name="" class="form-control" placeholder="Name" type="text">
+                <input id = "username" name="username" class="form-control" placeholder="Name" type="text">
               </div> <!-- form-group// -->     
               <div class="form-group input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
                 </div>
-                <input name="" class="form-control" placeholder="Email address" type="email">
+                <input id = "email" name="email" class="form-control" placeholder="Email address" type="email">
               </div> <!-- form-group// --> 
-              <div class="form-group input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="far fa-address-card"></i></span>
-                </div>
-                <button type="address" class="form-control text-left bg-light" id="address-pop">Click to input Address</button>
-                <input type="address" class="form-control" id="address" style="display: none;">
-              </div> <!-- form-group// -->    
-              <div class="form-group input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-                </div>
-                <input name="" class="form-control" placeholder="상세 주소" type="address2">
-              </div> <!-- form-group// -->                              
               <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-block" data-dismiss="modal"> 가입하기 </button>
+                <button type="button" onclick="javascript:signup();" class="btn btn-primary btn-block" data-dismiss="modal"> 가입하기 </button>
               </div> <!-- form-group// -->      
               <p class="text-center">Have an account? <a data-dismiss="modal" data-toggle="modal" href="#loginModal">Log In</a> </p>                                                                 
             </form>
@@ -547,21 +578,22 @@
         <div class="modal-body">
           <article class="card-body mx-auto" style="max-width: 400px;">
             <h4 class="card-title text-center mt-3">Login</h4>
-            <form>
+            <form id="loginform" action="" method="post">
+            <input type="hidden" name="action" value="login">
               <div class="form-group input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                 </div>
-                <input name="" id="id-input" class="form-control" placeholder="ID" type="text">
+                <input name="userid" id="useridL" class="form-control" placeholder="ID" type="text">
               </div> <!-- form-group// -->
               <div class="form-group input-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
                 </div>
-                <input id="pw-input" class="form-control" placeholder="Password" type="password">
+                <input name="userpwd" id="userpwdL" class="form-control" placeholder="Password" type="password">
               </div> <!-- form-group// -->
               <div class="form-group">
-                <button type="submit" id="login-btn" class="btn btn-primary btn-block" data-dismiss="modal"> 로그인 </button>
+                <button type="button" onclick="javascript:login();" id="login-btn" class="btn btn-primary btn-block" data-dismiss="modal"> 로그인 </button>
               </div> <!-- form-group// -->      
               <p class="text-center">비밀번호를 잊어버리셨나요? <a data-dismiss="modal" data-toggle="modal" href="#findPWModal">비밀번호 찾기</a> </p>                                                                 
             </form>
@@ -598,7 +630,7 @@
                 <input name="" class="form-control" placeholder="Email address" type="email">
               </div> <!-- form-group// --> 
               <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-block">이메일 전송 </button>
+                <button type="submit" onclick="" class="btn btn-primary btn-block">이메일 전송 </button>
               </div> <!-- form-group// -->      
               <p class="text-center">입력하신 이메일로 임시 비밀번호가 전송됩니다.</p>                                                                 
             </form>
@@ -617,8 +649,6 @@
   <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
   <script src="assets/vendor/venobox/venobox.min.js"></script>
   <script src="assets/vendor/aos/aos.js"></script>
-
-  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>

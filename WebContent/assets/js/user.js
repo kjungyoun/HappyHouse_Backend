@@ -1,15 +1,4 @@
 $(document).ready(function () {
-    var who = localStorage.getItem('isLogin');
-    if(who == 'manager' || who == 'user'){
-        if(who == 'manager'){
-            $('.admin-nav').removeClass('d-none');
-        }
-        $('.login-nav').addClass('d-none');
-        $('.signup-nav').addClass('d-none');
-        $('.mypage-nav').removeClass('d-none');
-        $('.logout-nav').removeClass('d-none');
-    }
-
     // 회원가입 -> 주소 검색 눌렀을 때
     $('#address-pop').click(function(e) {
         new daum.Postcode({
@@ -26,37 +15,6 @@ $(document).ready(function () {
               $('#address-detail').focus();
           }
         }).open();
-    });
-
-    // 로그인 했을 때
-    $('#login-btn').click(function (e) { 
-        // 유효성 검사 해야하나?
-        if($('#id-input').val() == 'ssafy' && $('#pw-input').val() == 'ssafy'){
-            if(true){
-                // 관리자라면 관리자 페이지 보여주기
-                $('.admin-nav').removeClass('d-none');
-                $('#write-notice').css('visibility', 'visible')
-                localStorage.setItem('isLogin', 'manager');
-            } else{
-                localStorage.setItem('isLogin', 'user');
-            }
-            $('.login-nav').addClass('d-none');
-            $('.signup-nav').addClass('d-none');
-            $('.mypage-nav').removeClass('d-none');
-            $('.logout-nav').removeClass('d-none');
-        }else{
-            alert("틀린 정보입니다.")
-        }
-    });
-
-    // 로그아웃 했을 때
-    $('.logout-nav').click(function (e) { 
-        $('.login-nav').removeClass('d-none');
-        $('.signup-nav').removeClass('d-none');
-        $('.mypage-nav').addClass('d-none');
-        $('.logout-nav').addClass('d-none');
-        $('.admin-nav').addClass('d-none');
-        localStorage.removeItem('isLogin');
     });
 
     $('#all-select').click(function (e) { 

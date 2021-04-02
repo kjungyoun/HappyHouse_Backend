@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="root" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,7 +41,7 @@
         <span class="ml-1"><a href="notice.jsp">공지사항</a></span>
       </div>
 
-      <nav class="nav-menu d-none d-lg-block">
+      <nav class="nav-menu d-lg-block">
         <ul>
           <li class="active"><a href="index.jsp">Home</a></li>
           <li><a href="#about">About Us</a></li>
@@ -97,46 +98,22 @@
                   <th scope="col">ID</th>
                   <th scope="col">이름</th>
                   <th scope="col">이메일</th>
-                  <th scope="col">주소</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
+              <c:forEach var="mem" items="${members}">
+              	<tr>
                   <td>
                     <div class="custom-control custom-checkbox user-select">
                         <input type="checkbox" class="custom-control-input" id="customCheck1" checked>
-                        <label class="custom-control-label" for="customCheck1">1</label>
+                        <label class="custom-control-label" for="customCheck1">#</label>
                     </div>
                   </td>
-                  <td>ssafy12345</td>
-                  <td>김싸피</td>
-                  <td>ssafy12345@gmail.com</td>
-                  <td>서울시 강남구 역삼동 멀티캠퍼스</td>
+                  <td>${mem.userid}</td>
+                  <td>${mem.username}</td>
+                  <td>${mem.email}</td>
                 </tr>
-                <tr>
-                  <td>
-                    <div class="custom-control custom-checkbox user-select">
-                        <input type="checkbox" class="custom-control-input" id="customCheck2">
-                        <label class="custom-control-label" for="customCheck2">2</label>
-                    </div>
-                  </td>
-                  <td>lalalalala</td>
-                  <td>라라라</td>
-                  <td>lalalalala@naver.com</td>
-                  <td>서울시 성동구 마조로45</td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="custom-control custom-checkbox user-select">
-                        <input type="checkbox" class="custom-control-input" id="customCheck3">
-                        <label class="custom-control-label" for="customCheck3">3</label>
-                    </div>
-                  </td>
-                  <td>hohoho</td>
-                  <td>호호호</td>
-                  <td>hohoho@gmail.com</td>
-                  <td>서울시 관악구 남부순환로220길 29</td>
-                </tr>
+              </c:forEach>
               </tbody>
             </table>
           </div>
