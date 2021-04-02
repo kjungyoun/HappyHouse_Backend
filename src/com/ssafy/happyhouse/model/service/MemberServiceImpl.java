@@ -1,12 +1,11 @@
 package com.ssafy.happyhouse.model.service;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 
 import com.ssafy.happyhouse.model.MemberDto;
 import com.ssafy.happyhouse.model.MemberException;
-import com.ssafy.happyhouse.model.PageBean;
+import com.ssafy.happyhouse.model.PageBean2;
 import com.ssafy.happyhouse.model.dao.MemberDaoImpl;
 import com.ssafy.happyhouse.util.DBUtil;
 import com.ssafy.happyhouse.util.PageUtility;
@@ -61,13 +60,14 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<MemberDto> searchAll(PageBean bean) throws Exception {
+	public List<MemberDto> searchAll(PageBean2 bean) throws Exception {
 		Connection conn = null;
 		try {
 			conn = DBUtil.getConnection();
 			int total = MemberDaoImpl.getMemberDao().totalCount(conn, bean);
 			PageUtility util = new PageUtility(bean.getInterval(), total, bean.getPageNo(), "images/");
 			bean.setPageLink(util.getPageBar());
+			System.out.println("total-----------------------------"+total);
 			return MemberDaoImpl.getMemberDao().searchAll(conn,bean);
 		} catch (Exception e) {
 			e.printStackTrace();

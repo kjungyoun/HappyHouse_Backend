@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.ssafy.happyhouse.model.MemberDto;
-import com.ssafy.happyhouse.model.PageBean;
+import com.ssafy.happyhouse.model.PageBean2;
 
 public interface MemberDao {
 
@@ -25,7 +25,7 @@ public interface MemberDao {
 	void deleteMember(String userid)throws SQLException;
 	
 //  회원 전체	
-	List<MemberDto> searchAll(Connection conn, PageBean bean)throws SQLException;
+	List<MemberDto> searchAll(Connection conn, PageBean2 bean)throws SQLException;
 	
-	int totalCount(Connection conn, PageBean bean) throws SQLException;
+	int totalCount(Connection conn, PageBean2 bean) throws SQLException;
 }

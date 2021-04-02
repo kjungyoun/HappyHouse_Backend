@@ -233,8 +233,8 @@
                   <h4>김정윤</h4>
                 </div>
                 <div class="social">
-                  <a href="https://www.instagram.com/jjoonjjoonii/"><i class="icofont-facebook"></i></a>
-                  <a href="https://www.instagram.com/jjoonjjoonii/"><i class="icofont-instagram"></i></a>
+                  <a href="https://www.instagram.com/jungyoun729/"><i class="icofont-facebook"></i></a>
+                  <a href="https://www.instagram.com/jungyoun729/"><i class="icofont-instagram"></i></a>
                 </div>
               </div>
             </div>

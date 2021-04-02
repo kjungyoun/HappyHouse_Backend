@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import com.ssafy.happyhouse.model.MemberDto;
 import com.ssafy.happyhouse.model.PageBean;
+import com.ssafy.happyhouse.model.PageBean2;
 import com.ssafy.happyhouse.model.service.HouseServiceImpl;
 import com.ssafy.happyhouse.model.service.MemberServiceImpl;
 
@@ -91,7 +92,7 @@ public class MainController extends HttpServlet {
 		key = key==null? "": key;
 		word = word==null? "": word;
 		
-		PageBean bean = new PageBean(key,word,pageNo);
+		PageBean2 bean = new PageBean2(key,word,pageNo);
 		
 		try {
 			List<MemberDto> list = MemberServiceImpl.getMemberService().searchAll(bean);
@@ -99,7 +100,7 @@ public class MainController extends HttpServlet {
 			for (MemberDto mem : list) {
 				System.out.println(mem);
 			}
-			
+			request.setAttribute("bean", bean);
 			request.setAttribute("members", list);
 		} catch (Exception e) {
 			e.printStackTrace();

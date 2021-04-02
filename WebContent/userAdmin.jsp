@@ -73,19 +73,17 @@
             <h3 class="text-center">HappyHouse 회원 검색</h3>
           </div>
           <div class="col-12 mb-3">
-            <div class="d-inline-block">
-              <button id="all-select" type="button" class="btn btn-secondary">전체선택</button>
-              <button type="button" class="btn btn-danger">선택삭제</button>
-            </div>
+           
             <form id="form" class="form-inline" style="float : right">
             <input type="hidden" name="pageNo" id="pageNo">
             <input type="hidden" name="action" id="action">
             <select class="form-control" id="key" name="key" style="width: 150px">
+							<option value="all">전체 검색</option>
 							<option value="id">아이디로 검색</option>
 							<option value="name">이름으로 검색</option>
 							<option value="email">이메일로 검색</option>
 						  </select>
-              <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" name="word"/>
+              <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" name="word" value="${bean.word}"/>
                 <button type="button" id="sub" class="btn btn-primary">검색</button>
             </form>
           </div>
@@ -116,7 +114,7 @@
               </tbody>
             </table>
           </div>
-          <div class="col-12 mt-3">
+          <div class="col-12 mt-3" align="center">
             ${bean.pageLink}
           </div>
         </div>

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ssafy.happyhouse.model.MemberDto;
-import com.ssafy.happyhouse.model.PageBean;
+import com.ssafy.happyhouse.model.PageBean2;
 import com.ssafy.happyhouse.util.DBUtil;
 
 public class MemberDaoImpl implements MemberDao {
@@ -150,17 +150,17 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public List<MemberDto> searchAll(Connection conn, PageBean bean) throws SQLException {
+	public List<MemberDto> searchAll(Connection conn, PageBean2 bean) throws SQLException {
 		List<MemberDto> list = new ArrayList<MemberDto>();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String key = bean.getKey();
 		String word = bean.getWord();
-		int startNo= bean.getStartNo();
+		int startNo= bean.getStartNo()-1;
 		int interval=bean.getInterval();
 		
 		try {
-			StringBuilder sql = new StringBuilder(50);
+			StringBuilder sql = new StringBuilder();
 			
 			sql.append(" select userid, username, email  \n");
 			sql.append(" from   member                                    \n");
@@ -202,7 +202,7 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public int totalCount(Connection conn, PageBean bean) throws SQLException {
+	public int totalCount(Connection conn, PageBean2 bean) throws SQLException {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
