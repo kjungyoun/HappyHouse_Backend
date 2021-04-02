@@ -10,7 +10,7 @@
 <script type="text/javascript">
 		$(function() {
 			//검색 버튼에 이벤트 연결
-			$('#submit').click(function () {
+			$('#submitBtn').click(function () {
 				pagelist(1);
 			})
 			<c:if test='${not empty param.key}'>
@@ -22,11 +22,9 @@
 			//alert("pagelist"+cpage)
 			$("#pageNo").val(cpage);
 			$("#action").val("search");
-			/* var frm = $("#form");
+			var frm = $("#form");
 			frm.attr('action',"${root}/main");
-			frm.submit(); */
-			document.getElementById("form").action = "${root}/main";
-			document.getElementById("form").submit();
+			frm.submit();
 		}
 	  </script>
 </head>
@@ -76,7 +74,7 @@
 							<hr>
 						</c:forEach>
 						</div>
-					<form id="form" method="get">
+					<form id="form" method="get" action="">
 					<div>${bean.pageLink}</div>
 					</ul>
 					</c:when>
@@ -104,7 +102,7 @@
 							<hr>
 						</c:forEach>
 						</div>
-					<form id="form" method="get">
+					<form id="form" method="get" action="">
 					<div>${bean.pageLink}</div>
 					</ul>
 					</c:otherwise>
@@ -125,7 +123,7 @@
 						</div>
 				
 						<div class="form-group d-inline-block">
-						  <button  id="submit" class="btn btn-primary mb-1">검색</button>
+						  <button  id="submitBtn" class="btn btn-primary mb-1">검색</button>
 						</div>
 					  </form>
 						<iframe
