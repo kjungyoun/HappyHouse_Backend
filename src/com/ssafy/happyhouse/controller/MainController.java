@@ -6,19 +6,59 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/main")
 public class MainController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		process(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		request.setCharacterEncoding("utf-8");
+		process(request, response);
+	}
+	
+	private void process(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		String root = request.getContextPath();
+		String action = request.getParameter("action");
+		System.out.println("action......................................."+action);
+		
+		String url="index.jsp";
+		
+		try {
+			if(action!=null) {
+				if(action.equals("login")) {
+					url = login(request, response);
+				}else if(action.equals("logout")) {
+
+				}else if(action.equals("")) {
+
+				}else if(action.equals("")) {
+
+				}else if(action.equals("")) {
+
+				}else if(action.equals("")) {
+
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			request.setAttribute("msg", e.getMessage());
+			url="error/error.jsp";
+		}
+		if(url.startsWith("redirect:")) {//경로가 redirect: 로 시작하면     sendRedirect로 이동.
+			//redirect:url 이므로     url에서 redirect:를 제거후 이동 
+			response.sendRedirect(url.substring(url.indexOf(":")+1));
+		}else {//경로가 redirect: 로  시작하지 않으면 기본적으로 forward로 이동.
+			request.getRequestDispatcher(url).forward(request, response);
+		}
+	}
+
+	private String login(HttpServletRequest request, HttpServletResponse response) {
+		return null;
 	}
 
 }
