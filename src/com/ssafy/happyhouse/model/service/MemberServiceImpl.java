@@ -8,13 +8,12 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public void registerMember(MemberDto memberDto) throws Exception {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	public MemberDto login(String userid, String userpwd) throws Exception {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
