@@ -4,40 +4,7 @@
 <c:set var="root"	value='${pageContext.request.contextPath}'/> 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-<title>HappyHouse</title>
-<!-- Favicons -->
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<link href="assets/img/favicon.png" rel="icon">
-<link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
-
-<!-- Google Fonts -->
-<link
-	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-	rel="stylesheet">
-
-<!-- Vendor CSS Files -->
-<link href="assets/vendor/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet">
-<link href="assets/vendor/icofont/icofont.min.css" rel="stylesheet">
-<link href="assets/vendor/boxicons/css/boxicons.min.css"
-	rel="stylesheet">
-<link href="assets/vendor/owl.carousel/assets/owl.carousel.min.css"
-	rel="stylesheet">
-<link href="assets/vendor/venobox/venobox.css" rel="stylesheet">
-<link href="assets/vendor/aos/aos.css" rel="stylesheet">
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
 <!-- Template Main CSS File -->
 <link href="assets/css/style.css" rel="stylesheet">
 <script type="text/javascript">
@@ -52,54 +19,23 @@
 		})
 		function pagelist(cpage){
 			//input 양식의 hidden으로 선언된 page에 요청된 페이지 정보 셋팅 
-			alert("pagelist"+cpage)
+			//alert("pagelist"+cpage)
 			$("#pageNo").val(cpage);
 			$("#action").val("search");
-			var frm = $("#form");
+			/* var frm = $("#form");
 			frm.attr('action',"${root}/main");
-			frm.submit();
+			frm.submit(); */
+			document.getElementById("form").action = "${root}/main";
+			document.getElementById("form").submit();
 		}
 	  </script>
 </head>
 
 <body>
-	<!-- ======= Header ======= -->
-	<header id="header" class="fixed-top">
-		<div class="container d-flex">
-
-			<div class="logo mr-auto">
-				<h1 class="text-light d-inline-block">
-					<a href="index.jsp">HappyHouse</a>
-				</h1>
-				<span class="ml-1"><a href="notice.jsp">공지사항</a></span>
-			</div>
-
-			<nav class="nav-menu d-none d-lg-block">
-				<ul>
-					<li class="active"><a href="index.jsp">Home</a></li>
-					<li><a href="#about">About Us</a></li>
-					<li><a href="#services">Services</a></li>
-					<li><a href="#team">Team</a></li>
-
-					<li><a id="logout-nav" class="logout-nav font-weight-bold">Logout</a></li>
-					<li><a id="mypage-nav" href="mypage.jsp"
-						class="mypage-nav font-weight-bold">MyPage</a></li>
-					<!-- 관리자가 로그인했을 때만 -->
-					<li><a id="admin-nav" href="userAdmin.jsp"
-						class="admin-nav font-weight-bold">Admin</a></li>
-
-
-				</ul>
-			</nav>
-			<!-- .nav-menu -->
-
-		</div>
-	</header>
-	<!-- End Header -->
-
+	<jsp:include page="/include/header.jsp"/>
 	<div class="jumbotron jumbotron-fluid">
-		<picture> <img src="assets/img/미세먼지2.jpg"
-			class="jumbotron__background"> </picture>
+		<img src="assets/img/미세먼지2.jpg"
+			class="jumbotron__background">
 		<div class="container text-white text-center">
 			<h4 class="display-4">주변 지역의 아파트 거래 정보를 확인하세요</h4>
 			<p class="lead"></p>
@@ -140,7 +76,7 @@
 							<hr>
 						</c:forEach>
 						</div>
-					<form id="form">
+					<form id="form" method="get">
 					<div>${bean.pageLink}</div>
 					</ul>
 					</c:when>
@@ -168,7 +104,7 @@
 							<hr>
 						</c:forEach>
 						</div>
-					<form id="form">
+					<form id="form" method="get">
 					<div>${bean.pageLink}</div>
 					</ul>
 					</c:otherwise>
@@ -202,46 +138,7 @@
 	</section>
 	<!-- End About Section --> </main>
 	<!-- End #main -->
-
-	<!-- ======= Footer ======= -->
-	<footer id="footer">
-		<div class="footer-top">
-			<div class="container">
-				<div class="row">
-
-					<div class="col-lg-3 col-md-6">
-						<div class="footer-info">
-							<h3>HappyHouse</h3>
-							<h5>ssafy 5th 서울 8반</h5>
-							<h5>박재준 이서영</h5>
-						</div>
-					</div>
-
-					<div class="col-lg-2 col-md-6 footer-links">
-						<h4>Links</h4>
-						<ul>
-							<li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-							<li><i class="bx bx-chevron-right"></i> <a href="#">About
-									us</a></li>
-							<li><i class="bx bx-chevron-right"></i> <a href="#">Terms
-									of service</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="container">
-			<div class="copyright">
-				&copy; Copyright <strong><span>Maxim</span></strong>. All Rights
-				Reserved
-			</div>
-			<div class="credits">
-				Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-			</div>
-		</div>
-	</footer>
-	<!-- End Footer -->
+<jsp:include page="/include/footer.jsp"/>
 
 	<a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
 
