@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="root" value="${pageContext.request.contextPath}"/>
-<% String root = request.getContextPath(); %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -70,41 +69,7 @@
 </head>
 
 <body>
-  <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top">
-    <div class="container d-flex">
-
-      <div class="logo mr-auto">
-        <h1 class="text-light d-inline-block"><a href="index.jsp">HappyHouse</a></h1>
-        <span class="ml-1"><a href="notice.jsp">공지사항</a></span>
-      </div>
-
-      <nav class="nav-menu d-lg-block">
-        <ul>
-          <li class="active"><a href="index.jsp">Home</a></li>
-          <li><a href="#about">About Us</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#team">Team</a></li>
-          
-          <c:if test="${userinfo eq null}">
-          	<li><a id="" href="" class="font-weight-bold" data-toggle="modal" data-target="#loginModal">Login</a></li>
-          	<li><a id="" href="" class="font-weight-bold" data-toggle="modal" data-target="#signupModal">SignUp</a></li>
-          </c:if>
-          <c:if test="${userinfo ne null}">
-	          <li><a id="" href="${root}/main?action=logout" class="font-weight-bold">Logout</a></li>
-	          <li><a id="" href="${root}/main?action=mvmypage" class="font-weight-bold">MyPage</a></li>
-	          <!-- 관리자가 로그인했을 때만 -->
-	          <c:if test="${userinfo.userid eq 'admin'}">
-	          	<li><a id="" href="${root}/main?action=memberList" class="font-weight-bold">Admin</a></li> 
-	          </c:if>
-		</c:if>
-
-        </ul>
-      </nav><!-- .nav-menu -->
-
-    </div>
-  </header><!-- End Header -->
-
+<jsp:include page="/include/header.jsp"/>
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
     <div class="container text-center text-md-left" data-aos="fade-up">
@@ -224,7 +189,7 @@
             <div class="tab-content">
               <div class="tab-pane active show" id="map">
 
-                <form method="get" action="<%=root%>/main">
+                <form method="get" action="${root}/main">
                 <input type="hidden" name="action" value="searchAll">
                   <div class="form-group d-inline-block">
                     <select class="form-control" id="sel1"name="key1">
@@ -260,7 +225,7 @@
                   width="600" height="450" style="border: 0;"> </iframe>
               </div>
               <div class="tab-pane" id="detail">
-              <form method="get" action="<%=root%>/main">
+              <form method="get" action="${root}/main">
               <input type="hidden" name="action" value="search">
               <div class="form-group d-inline-block">
                     <button type="submit" class="btn btn-primary mb-1">상세 검색하러 가기</button>
@@ -272,7 +237,7 @@
               </div>
               <div class="tab-pane" id="srcdong">
                 <div class="container mt-3">
-                  <form method="post" action="<%=root%>/main">
+                  <form method="post" action="${root}/main">
                   <input type="hidden" name="action" value="search">
                   <input type="hidden" name="key" value="dong">
                   <iframe
@@ -289,7 +254,7 @@
               </div>
               <div class="tab-pane" id="srcapt">
                 <div class="container mt-3">
-                <form method="post" action="<%=root%>/main">
+                <form method="post" action="${root}/main">
                 <input type="hidden" name="action" value="search">
                 <input type="hidden" name="key" value="AptName">
                   <iframe
@@ -364,41 +329,7 @@
 
   </main><!-- End #main -->
 
-  <!-- ======= Footer ======= -->
-  <footer id="footer">
-    <div class="footer-top">
-      <div class="container">
-        <div class="row">
-
-          <div class="col-lg-3 col-md-6">
-            <div class="footer-info">
-              <h3>HappyHouse</h3>
-              <h5>ssafy 5th 서울 8반 </h5>
-              <h5>박재준 이서영</h5>
-            </div>
-          </div>
-
-          <div class="col-lg-2 col-md-6 footer-links">
-            <h4>Links</h4>
-            <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="container">
-      <div class="copyright">
-        &copy; Copyright <strong><span>Maxim</span></strong>. All Rights Reserved
-      </div>
-      <div class="credits">
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-      </div>
-    </div>
-  </footer><!-- End Footer -->
-
+<jsp:include page="/include/footer.jsp"/>
   <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
 
   <!-- SignUp Modal -->
