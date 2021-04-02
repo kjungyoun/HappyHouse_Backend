@@ -54,38 +54,10 @@
 </head>
 
 <body>
-  <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top">
-    <div class="container d-flex">
-
-      <div class="logo mr-auto">
-        <h1 class="text-light d-inline-block"><a href="index.jsp">HappyHouse</a></h1>
-        <span class="ml-1"><a href="notice.jsp">공지사항</a></span>
-      </div>
-
-      <nav class="nav-menu d-lg-block">
-        <ul>
-          <li class="active"><a href="index.jsp">Home</a></li>
-          <li><a href="#about">About Us</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#team">Team</a></li>
-          
-          <li><a id="logout-nav" href="" class="logout-nav font-weight-bold">Logout</a></li>
-          <li><a id="mypage-nav" href="mypage.jsp" class="mypage-nav font-weight-bold">MyPage</a></li>
-          <!-- 관리자가 로그인했을 때만 -->
-          <li><a id="admin-nav" href="userAdmin.jsp" class="admin-nav font-weight-bold">Admin</a></li> 
-
-
-        </ul>
-      </nav><!-- .nav-menu -->
-
-    </div>
-  </header><!-- End Header -->
+  <jsp:include page="/include/header.jsp"/>
 
   <div class="jumbotron jumbotron-fluid">
-    <picture >
       <img src="assets/img/bg-index.jpg" class="jumbotron__background">
-    </picture>
     <div class="container text-white text-center">
       <h1 class="display-4">Administration</h1>
       <p class="lead"></p>
@@ -154,41 +126,7 @@
     
   </main><!-- End #main -->
 
-  <!-- ======= Footer ======= -->
-  <footer id="footer">
-    <div class="footer-top">
-      <div class="container">
-        <div class="row">
-
-          <div class="col-lg-3 col-md-6">
-            <div class="footer-info">
-              <h3>HappyHouse</h3>
-              <h5>ssafy 5th 서울 8반 </h5>
-              <h5>박재준 이서영</h5>
-            </div>
-          </div>
-
-          <div class="col-lg-2 col-md-6 footer-links">
-            <h4>Links</h4>
-            <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="container">
-      <div class="copyright">
-        &copy; Copyright <strong><span>Maxim</span></strong>. All Rights Reserved
-      </div>
-      <div class="credits">
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-      </div>
-    </div>
-  </footer><!-- End Footer -->
+<jsp:include page="/include/footer.jsp"/>
 
   <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
 

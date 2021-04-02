@@ -2,6 +2,13 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="root"	value='${pageContext.request.contextPath}'/> 
+<c:if test="${userinfo eq null}">
+	<script>
+		alert("로그인이 필요한 페이지입니다.\n로그인 페이지로 이동합니다.");
+		location.href = "main";
+	</script>
+</c:if>
+<c:if test="${userinfo ne null}">
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,7 +50,7 @@
 <script type="text/javascript">
 		$(function() {
 			//검색 버튼에 이벤트 연결
-			$('#submit').click(function () {
+			$('#submitBtn').click(function () {
 				pagelist(1);
 			})
 			<c:if test='${not empty param.key}'>
@@ -52,7 +59,6 @@
 		})
 		function pagelist(cpage){
 			//input 양식의 hidden으로 선언된 page에 요청된 페이지 정보 셋팅 
-			alert("pagelist"+cpage)
 			$("#pageNo").val(cpage);
 			$("#action").val("search");
 			var frm = $("#form");
@@ -63,43 +69,11 @@
 </head>
 
 <body>
-	<!-- ======= Header ======= -->
-	<header id="header" class="fixed-top">
-		<div class="container d-flex">
-
-			<div class="logo mr-auto">
-				<h1 class="text-light d-inline-block">
-					<a href="index.jsp">HappyHouse</a>
-				</h1>
-				<span class="ml-1"><a href="notice.jsp">공지사항</a></span>
-			</div>
-
-			<nav class="nav-menu d-none d-lg-block">
-				<ul>
-					<li class="active"><a href="index.jsp">Home</a></li>
-					<li><a href="#about">About Us</a></li>
-					<li><a href="#services">Services</a></li>
-					<li><a href="#team">Team</a></li>
-
-					<li><a id="logout-nav" class="logout-nav font-weight-bold">Logout</a></li>
-					<li><a id="mypage-nav" href="mypage.jsp"
-						class="mypage-nav font-weight-bold">MyPage</a></li>
-					<!-- 관리자가 로그인했을 때만 -->
-					<li><a id="admin-nav" href="userAdmin.jsp"
-						class="admin-nav font-weight-bold">Admin</a></li>
-
-
-				</ul>
-			</nav>
-			<!-- .nav-menu -->
-
-		</div>
-	</header>
-	<!-- End Header -->
+<jsp:include page="/include/header.jsp"/>
 
 	<div class="jumbotron jumbotron-fluid">
-		<picture> <img src="assets/img/미세먼지2.jpg"
-			class="jumbotron__background"> </picture>
+		 <img src="assets/img/미세먼지2.jpg"
+			class="jumbotron__background"> 
 		<div class="container text-white text-center">
 			<h4 class="display-4">주변 지역의 아파트 거래 정보를 확인하세요</h4>
 			<p class="lead"></p>
@@ -189,7 +163,7 @@
 						</div>
 				
 						<div class="form-group d-inline-block">
-						  <button  id="submit" class="btn btn-primary mb-1">검색</button>
+						  <button  id="submitBtn" class="btn btn-primary mb-1">검색</button>
 						</div>
 					  </form>
 						<iframe
@@ -202,46 +176,8 @@
 	</section>
 	<!-- End About Section --> </main>
 	<!-- End #main -->
-
-	<!-- ======= Footer ======= -->
-	<footer id="footer">
-		<div class="footer-top">
-			<div class="container">
-				<div class="row">
-
-					<div class="col-lg-3 col-md-6">
-						<div class="footer-info">
-							<h3>HappyHouse</h3>
-							<h5>ssafy 5th 서울 8반</h5>
-							<h5>박재준 이서영</h5>
-						</div>
-					</div>
-
-					<div class="col-lg-2 col-md-6 footer-links">
-						<h4>Links</h4>
-						<ul>
-							<li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-							<li><i class="bx bx-chevron-right"></i> <a href="#">About
-									us</a></li>
-							<li><i class="bx bx-chevron-right"></i> <a href="#">Terms
-									of service</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="container">
-			<div class="copyright">
-				&copy; Copyright <strong><span>Maxim</span></strong>. All Rights
-				Reserved
-			</div>
-			<div class="credits">
-				Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-			</div>
-		</div>
-	</footer>
-	<!-- End Footer -->
+</c:if>
+<jsp:include page="/include/footer.jsp"/>
 
 	<a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
 

@@ -4,70 +4,6 @@
 <c:set var="root" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-  <title>HappyHouse</title>
-
-  <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/icofont/icofont.min.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
-  <link href="assets/vendor/venobox/venobox.css" rel="stylesheet">
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-
-  <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
-  
-  <script type="text/javascript">
-	function login() {
-		if(document.getElementById("useridL").value == "") {
-			alert("아이디 입력!!!");
-			return;
-		} else if(document.getElementById("userpwdL").value == "") {
-			alert("비밀번호 입력!!!");
-			return;
-		} else {
-			document.getElementById("loginform").action = "${root}/main";
-			document.getElementById("loginform").submit();
-		}
-	}
-	function signup(){
-		if($("#username").val() == "") {
-			alert("이름 입력!!!");
-			return;
-		} else if($("#userid").val() == "") {
-			alert("아이디 입력!!!");
-			return;
-		} else if($("#userpwd").val() == "") {
-			alert("비밀번호 입력!!!");
-			return;
-		} else if($("#userpwd").val() != $("#pwdcheck").val()) {
-			alert("비밀번호 확인!!!");
-			return;
-		}else if($("#email").val() == "") {
-			alert("이메일 입력!!!");
-			return;
-		} else {
-			document.getElementById("signupform").action = "${root}/main";
-			document.getElementById("signupform").submit();
-		}
-	}
-	
-	</script>
-</head>
-
 <body>
 <jsp:include page="/include/header.jsp"/>
   <!-- ======= Hero Section ======= -->
@@ -96,13 +32,13 @@
             <div class="icon-box" data-aos="fade-up">
               <i class="bx bx-receipt"></i>
               <h4>관리자 아이디와 비밀번호</h4>
-              <p>관리자 아이디는 'ssafy'이고 비밀번호도 'ssafy'입니다.</p>
+              <p>아이디가 'admin'이면 모두가 관리자입니다.</p>
             </div>
 
             <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
               <i class="bx bx-cube-alt"></i>
-              <h4>Bootstrap과 jquery</h4>
-              <p>Bootstrap과 jquery를 사용한 웹 프론트 프로젝트입니다.</p>
+              <h4>JSP와 MySQL</h4>
+              <p>JSP와 MySQL을 사용한 웹 백엔드 프로젝트입니다.</p>
             </div>
           </div>
         </div>
@@ -276,12 +212,12 @@
     </section><!-- End Features Section -->
    
     <!-- ======= Team Section ======= -->
-    <section id="team" class="team">
+    <section id="team" class="team section-bg">
       <div class="container">
 
         <div class="section-title" data-aos="fade-up">
           <h2>Team</h2>
-          <p>서울 8반 10조 박재준 이서영 입니다.</p>
+          <p>서울 8반 7조 김정윤 이서영 입니다.</p>
         </div>
 
         <div class="row">
@@ -294,7 +230,7 @@
               <img src="assets/img/team/박재준.jpg" class="img-fluid" alt="">
               <div class="member-info">
                 <div class="member-info-content">
-                  <h4>박재준</h4>
+                  <h4>김정윤</h4>
                 </div>
                 <div class="social">
                   <a href="https://www.instagram.com/jjoonjjoonii/"><i class="icofont-facebook"></i></a>
@@ -332,124 +268,6 @@
 <jsp:include page="/include/footer.jsp"/>
   <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
 
-  <!-- SignUp Modal -->
-  <div class="modal" id="signupModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-body">
-          <article class="card-body mx-auto" style="max-width: 400px;">
-            <h4 class="card-title text-center mt-3">Create Account</h4>
-            <form id="signupform" action="" method="post">
-            <input type="hidden" name="action" value="register">
-              <div class="form-group input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
-                </div>
-                <input id = "userid" name="userid" class="form-control" placeholder="ID" type="text">
-              </div> <!-- form-group// -->
-              <div class="form-group input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-                </div>
-                <input id = "userpwd" name="userpwd" class="form-control" placeholder="Create password" type="password">
-              </div> <!-- form-group// -->
-              <div class="form-group input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-                </div>
-                <input id = "pwdcheck" name="pwdcheck" class="form-control" placeholder="Repeat password" type="password">
-              </div> <!-- form-group// -->
-              <div class="form-group input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="far fa-smile"></i></span>
-                </div>
-                <input id = "username" name="username" class="form-control" placeholder="Name" type="text">
-              </div> <!-- form-group// -->     
-              <div class="form-group input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
-                </div>
-                <input id = "email" name="email" class="form-control" placeholder="Email address" type="email">
-              </div> <!-- form-group// --> 
-              <div class="form-group">
-                <button type="button" onclick="javascript:signup();" class="btn btn-primary btn-block" data-dismiss="modal"> 가입하기 </button>
-              </div> <!-- form-group// -->      
-              <p class="text-center">Have an account? <a data-dismiss="modal" data-toggle="modal" href="#loginModal">Log In</a> </p>                                                                 
-            </form>
-          </article>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Login Modal -->
-  <div class="modal" id="loginModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-body">
-          <article class="card-body mx-auto" style="max-width: 400px;">
-            <h4 class="card-title text-center mt-3">Login</h4>
-            <form id="loginform" action="" method="post">
-            <input type="hidden" name="action" value="login">
-              <div class="form-group input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
-                </div>
-                <input name="userid" id="useridL" class="form-control" placeholder="ID" type="text">
-              </div> <!-- form-group// -->
-              <div class="form-group input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-                </div>
-                <input name="userpwd" id="userpwdL" class="form-control" placeholder="Password" type="password">
-              </div> <!-- form-group// -->
-              <div class="form-group">
-                <button type="button" onclick="javascript:login();" id="login-btn" class="btn btn-primary btn-block" data-dismiss="modal"> 로그인 </button>
-              </div> <!-- form-group// -->      
-              <p class="text-center">비밀번호를 잊어버리셨나요? <a data-dismiss="modal" data-toggle="modal" href="#findPWModal">비밀번호 찾기</a> </p>                                                                 
-            </form>
-          </article>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Find Password Modal -->
-  <div class="modal" id="findPWModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-body">
-          <article class="card-body mx-auto" style="max-width: 400px;">
-            <h4 class="card-title text-center mt-3">비밀번호 찾기</h4>
-            <form>
-              <div class="form-group input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
-                </div>
-                <input name="" class="form-control" placeholder="ID" type="text">
-              </div> <!-- form-group// -->
-              <div class="form-group input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="far fa-smile"></i></span>
-                </div>
-                <input name="" class="form-control" placeholder="Name" type="text">
-              </div> <!-- form-group// -->     
-              <div class="form-group input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
-                </div>
-                <input name="" class="form-control" placeholder="Email address" type="email">
-              </div> <!-- form-group// --> 
-              <div class="form-group">
-                <button type="submit" onclick="" class="btn btn-primary btn-block">이메일 전송 </button>
-              </div> <!-- form-group// -->      
-              <p class="text-center">입력하신 이메일로 임시 비밀번호가 전송됩니다.</p>                                                                 
-            </form>
-          </article>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/jquery/jquery.min.js"></script>
