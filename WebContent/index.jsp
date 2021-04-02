@@ -227,7 +227,7 @@
           </div>
           <div class="col-xl-3 col-lg-3 col-md-3" data-aos="fade-up">
             <div class="member">
-              <img src="assets/img/team/jy.JPG" class="img-fluid" alt="">
+              <img src="assets/img/team/jyyy.jpg" class="img-fluid" alt="">
               <div class="member-info">
                 <div class="member-info-content">
                   <h4>김정윤</h4>
