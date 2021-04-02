@@ -1,12 +1,15 @@
 package com.ssafy.happyhouse.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
+import com.ssafy.happyhouse.model.PageBean;
+import com.ssafy.happyhouse.model.service.HouseServiceImpl;
 
 @WebServlet("/main")
 public class MainController extends HttpServlet {
@@ -34,6 +37,10 @@ public class MainController extends HttpServlet {
 					url = login(request, response);
 				}else if(action.equals("logout")) {
 
+				}else if(action.equals("search")) {
+					url = search(request,response);
+				}else if(action.equals("")) {
+
 				}else if(action.equals("")) {
 
 				}else if(action.equals("")) {
@@ -55,6 +62,22 @@ public class MainController extends HttpServlet {
 		}else {//경로가 redirect: 로  시작하지 않으면 기본적으로 forward로 이동.
 			request.getRequestDispatcher(url).forward(request, response);
 		}
+	}
+
+	private String search(HttpServletRequest request, HttpServletResponse response) {
+		String path = "donginfo.jsp";
+		String key = request.getParameter("key");
+		String word = request.getParameter("word");
+		String pageNo = request.getParameter("pageNo");
+		
+		System.out.println("pageNo>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+pageNo);
+		
+		PageBean bean = new PageBean(key,word,pageNo);
+		request.setAttribute("list", HouseServiceImpl.getHouseService().searchHouse(bean));
+		request.setAttribute("bean", bean);
+		return path;
+		
+		
 	}
 
 	private String login(HttpServletRequest request, HttpServletResponse response) {

@@ -12,7 +12,21 @@ public class HouseDto {
 	private int dealDay;
 	private Double area;
 	private int floor;
-	private String jubun;
+	private String jibun;
+	private String city;
+	private String gugun;
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public String getGugun() {
+		return gugun;
+	}
+	public void setGugun(String gugun) {
+		this.gugun = gugun;
+	}
 	public int getNo() {
 		return no;
 	}
@@ -79,14 +93,16 @@ public class HouseDto {
 	public void setFloor(int floor) {
 		this.floor = floor;
 	}
-	public String getJubun() {
-		return jubun;
+	public String getJibun() {
+		return jibun;
 	}
-	public void setJubun(String jubun) {
-		this.jubun = jubun;
+	public void setJibun(String jibun) {
+		this.jibun = jibun;
 	}
+	
+	
 	public HouseDto(int no, String dong, String aptName, int code, String dealAmount, int buildYear, int dealYear,
-			int dealMonth, int dealDay, Double area, int floor, String jubun) {
+			int dealMonth, int dealDay, Double area, int floor, String jubun, String city, String gugun) {
 		super();
 		this.no = no;
 		this.dong = dong;
@@ -99,8 +115,9 @@ public class HouseDto {
 		this.dealDay = dealDay;
 		this.area = area;
 		this.floor = floor;
-		this.jubun = jubun;
+		this.jibun = jubun;
+		this.city = city;
+		this.gugun = gugun;
 	}
-	
 	public HouseDto() {};
 }
