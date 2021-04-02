@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<% String root = request.getContextPath(); %>
+<c:set var="root"	value='${pageContext.request.contextPath}'/> 
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,6 +11,8 @@
 
 <title>HappyHouse</title>
 <!-- Favicons -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link href="assets/img/favicon.png" rel="icon">
 <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 <link rel="stylesheet"
@@ -31,9 +33,33 @@
 	rel="stylesheet">
 <link href="assets/vendor/venobox/venobox.css" rel="stylesheet">
 <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <!-- Template Main CSS File -->
 <link href="assets/css/style.css" rel="stylesheet">
+<script type="text/javascript">
+		$(function() {
+			//검색 버튼에 이벤트 연결
+			$('#submit').click(function () {
+				pagelist(1);
+			})
+			<c:if test='${not empty param.key}'>
+		 		$('#key').val('${param.key}')
+			</c:if>
+		})
+		function pagelist(cpage){
+			//input 양식의 hidden으로 선언된 page에 요청된 페이지 정보 셋팅 
+			alert("pagelist"+cpage)
+			$("#pageNo").val(cpage);
+			$("#action").val("search");
+			var frm = $("#form");
+			frm.attr('action',"${root}/main");
+			frm.submit();
+		}
+	  </script>
 </head>
 
 <body>
@@ -86,72 +112,84 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-4 mb-5 mb-lg-0" data-aos="fade-right">
+				<c:choose>
+					<c:when test="${empty list }">
+					<h3 class="text-danger">조회할 상품 정보가 없습니다.</h3>
+					</c:when>
+					<c:when test="${bean.key eq 'dong'}">
 					<ul class="nav nav-tabs flex-column">
 						<div>
-							<h3 class="title">${house.dong} 거래 정보</h3>
-
+							<h3 class="title">거래 정보</h3>
 							<div class="separator-2"></div>
+						<c:forEach var="house" items="${list}">
 							<div class="media margin-clear">
 								<div class="media-body">
 									<h4>
-										대성스카이렉스
+										<a href="${root}/main?action=search&key=AptName&word=${house.aptName}">${house.aptName} 아파트</a>
 									</h4>
-									<h6 class="media-heading" id="">거래 가격 (만) : 190000</h6>
-									<h6 class="media-heading" id="">거래 가격 (만) : 190000</h6>
-									<h6 class="media-heading" id="">건축 연도 : 2008</h6>
-									<h6 class="media-heading" id="">거래 날짜 : 2019년 1월 19일</h6>
-									<h6 class="media-heading" id="">아파트 평수 : 14.59㎡(제곱 미터)</h6>
-									<h6 class="media-heading" id="">아파트 층 : 14 층</h6>
-									<h6 class="media-heading" id="">아파트 지번 : 9</h6>
+									<h6 class="media-heading" id="">지역 정보 : ${house.city} ${house.gugun} ${house.dong}</h6>
+									<h6 class="media-heading" id="">아파트 지번 : ${house.jibun}</h6>
+									<h6 class="media-heading" id="">아파트 이름 : ${house.aptName} 아파트</h6>
+									<h6 class="media-heading" id="">거래 가격 (만) : ${house.dealAmount}</h6>
+									<h6 class="media-heading" id="">건축 연도 : ${house.buildYear}</h6>
+									<h6 class="media-heading" id="">거래 날짜 : ${house.dealYear}년 ${house.dealMonth}월 ${house.dealDay}일</h6>
+									<h6 class="media-heading" id="">아파트 평수 : ${house.area}㎡(제곱 미터)</h6>
+									<h6 class="media-heading" id="">아파트 층 :  ${house.floor}층</h6>
 								</div>
 							</div>
 							<hr>
+						</c:forEach>
+						</div>
+					<form id="form">
+					<div>${bean.pageLink}</div>
+					</ul>
+					</c:when>
+					<c:otherwise>
+					<ul class="nav nav-tabs flex-column">
+						<div>
+							<h3 class="title">거래 정보</h3>
+							<div class="separator-2"></div>
+						<c:forEach var="house" items="${list}">
 							<div class="media margin-clear">
 								<div class="media-body">
 									<h4>
-										아남1
+										<a href="${root}/main?action=search&key=dong&word=${house.dong}">${house.dong }</a>
 									</h4>
-									<h6 class="media-heading" id="">거래 가격 (만) : 190000</h6>
-									<h6 class="media-heading" id="">건축 연도 : 2008</h6>
-									<h6 class="media-heading" id="">거래 날짜 : 2019년 1월 19일</h6>
-									<h6 class="media-heading" id="">아파트 평수 : 14.59㎡(제곱 미터)</h6>
-									<h6 class="media-heading" id="">아파트 층 : 14 층</h6>
-									<h6 class="media-heading" id="">아파트 지번 : 9</h6>
+									<h6 class="media-heading" id="">지역 정보 : ${house.city} ${house.gugun} ${house.dong}</h6>
+									<h6 class="media-heading" id="">아파트 지번 : ${house.jibun}</h6>
+									<h6 class="media-heading" id="">아파트 이름 : ${house.aptName} 아파트</h6>
+									<h6 class="media-heading" id="">거래 가격 (만) : ${house.dealAmount}</h6>
+									<h6 class="media-heading" id="">건축 연도 : ${house.buildYear}</h6>
+									<h6 class="media-heading" id="">거래 날짜 : ${house.dealYear}년 ${house.dealMonth}월 ${house.dealDay}일</h6>
+									<h6 class="media-heading" id="">아파트 평수 : ${house.area}㎡(제곱 미터)</h6>
+									<h6 class="media-heading" id="">아파트 층 :  ${house.floor}층</h6>
 								</div>
 							</div>
+							<hr>
+						</c:forEach>
 						</div>
+					<form id="form">
+					<div>${bean.pageLink}</div>
 					</ul>
-					<tr><th colspan='3' align='center'>${bean.pageLink}</th></tr>
+					</c:otherwise>
+			</c:choose>
 				</div>
 				<div class="col-lg-7 ml-auto" data-aos="fade-left">
-					<form method="post" action="<%=root%>/main">
-					<input type="hidden" name="action" value="searchAll">
+						<input type="hidden" name="action" id="action">
+						<input type='hidden' name='pageNo' id="pageNo">
 						<div class="form-group d-inline-block">
-						  <select class="form-control" id="sel1" name="city">
-							<option disabled selected>시/도</option>
-							<option>서울시</option>
-							<option>경기도</option>
-							<option>인천시</option>
+						  <select class="form-control" id="key" name="key">
+							<option value="all">전체 검색</option>
+							<option value="dong">동으로 검색</option>
+							<option value="AptName">아파트로 검색</option>
 						  </select>
 						</div>
 						<div class="form-group d-inline-block">
-						  <select class="form-control" id="sel2" name="gu">
-							<option disabled selected>시/구/군</option>
-							<option>종로구</option>
-							<option>용산구</option>
-							<option>마포구</option>
-						  </select>
+						   <input type="text" class="form-control" name="word" value="${bean.word}">
 						</div>
+				
 						<div class="form-group d-inline-block">
-						  <select class="form-control" id="sel3" name="dong">
-							<option disabled selected>동</option>
-							<option>청운동</option>
-							<option>안국동</option>
-							<option>돈의동</option>
-						  </select>
-						</div>
-						<div class="form-group d-inline-block">
-						  <button type="submit" class="btn btn-primary mb-1">검색</button>
+						  <button  id="submit" class="btn btn-primary mb-1">검색</button>
 						</div>
 					  </form>
 						<iframe

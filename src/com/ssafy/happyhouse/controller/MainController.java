@@ -87,15 +87,19 @@ public class MainController extends HttpServlet {
 		
 		String key = request.getParameter("key");
 		String word = request.getParameter("word");
+		String pageNo = request.getParameter("pageNo");
 		key = key==null? "": key;
 		word = word==null? "": word;
 		
+		PageBean bean = new PageBean(key,word,pageNo);
+		
 		try {
-			List<MemberDto> list = MemberServiceImpl.getMemberService().searchAll(key, word);
+			List<MemberDto> list = MemberServiceImpl.getMemberService().searchAll(bean);
 			
 			for (MemberDto mem : list) {
 				System.out.println(mem);
 			}
+			
 			request.setAttribute("members", list);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -182,7 +186,7 @@ public class MainController extends HttpServlet {
 		return url;
 	}
 	private String search(HttpServletRequest request, HttpServletResponse response) {
-		String path = "donginfo.jsp";
+		String path = "houseinfo.jsp";
 		String key = request.getParameter("key");
 		String word = request.getParameter("word");
 		String pageNo = request.getParameter("pageNo");

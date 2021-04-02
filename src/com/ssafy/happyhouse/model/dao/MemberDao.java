@@ -1,9 +1,11 @@
 package com.ssafy.happyhouse.model.dao;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
 import com.ssafy.happyhouse.model.MemberDto;
+import com.ssafy.happyhouse.model.PageBean;
 
 public interface MemberDao {
 
@@ -23,5 +25,7 @@ public interface MemberDao {
 	void deleteMember(String userid)throws SQLException;
 	
 //  회원 전체	
-	List<MemberDto> searchAll(String key, String word)throws SQLException;
+	List<MemberDto> searchAll(Connection conn, PageBean bean)throws SQLException;
+	
+	int totalCount(Connection conn, PageBean bean) throws SQLException;
 }

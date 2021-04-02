@@ -26,9 +26,31 @@
   <link href="assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
   <link href="assets/vendor/venobox/venobox.css" rel="stylesheet">
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
+  <script type="text/javascript">
+		$(function() {
+			//검색 버튼에 이벤트 연결
+			$('#sub').click(function () {
+				pagelist(1);
+			})
+			<c:if test='${not empty param.key}'>
+		 		$('#key').val('${param.key}')
+			</c:if>
+		})
+		function pagelist(cpage){
+			//input 양식의 hidden으로 선언된 page에 요청된 페이지 정보 셋팅 
+			$("#pageNo").val(cpage);
+			$("#action").val("memberList");
+			var frm = $("#form");
+			frm.attr('action',"${root}/main");
+			frm.submit();
+		}
+	  </script>
 </head>
 
 <body>
@@ -83,12 +105,17 @@
               <button id="all-select" type="button" class="btn btn-secondary">전체선택</button>
               <button type="button" class="btn btn-danger">선택삭제</button>
             </div>
-            <div class="input-group rounded" style="width: 240px; float: right;">
-              <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-              <span class="input-group-text border-0" id="search-addon">
-                <i class="fas fa-search"></i>
-              </span>
-            </div>
+            <form id="form" class="form-inline" style="float : right">
+            <input type="hidden" name="pageNo" id="pageNo">
+            <input type="hidden" name="action" id="action">
+            <select class="form-control" id="key" name="key" style="width: 150px">
+							<option value="id">아이디로 검색</option>
+							<option value="name">이름으로 검색</option>
+							<option value="email">이메일로 검색</option>
+						  </select>
+              <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" name="word"/>
+                <button type="button" id="sub" class="btn btn-primary">검색</button>
+            </form>
           </div>
           <div class="col-12">
             <table class="table table-bordered">
@@ -118,13 +145,7 @@
             </table>
           </div>
           <div class="col-12 mt-3">
-            <ul class="pagination justify-content-center">
-              <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-              <li class="page-item"><a class="page-link" href="#">1</a></li>
-              <li class="page-item active"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
+            ${bean.pageLink}
           </div>
         </div>
       </div>  

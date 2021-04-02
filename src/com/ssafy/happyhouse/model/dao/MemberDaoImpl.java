@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ssafy.happyhouse.model.MemberDto;
+import com.ssafy.happyhouse.model.PageBean;
 import com.ssafy.happyhouse.util.DBUtil;
 
 public class MemberDaoImpl implements MemberDao {
@@ -149,26 +150,41 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public List<MemberDto> searchAll(String key, String word) throws SQLException {
+	public List<MemberDto> searchAll(Connection conn, PageBean bean) throws SQLException {
 		List<MemberDto> list = new ArrayList<MemberDto>();
-		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		String key = bean.getKey();
+		String word = bean.getWord();
+		int startNo= bean.getStartNo();
+		int interval=bean.getInterval();
+		
 		try {
-			conn= DBUtil.getConnection();
 			StringBuilder sql = new StringBuilder(50);
 			
 			sql.append(" select userid, username, email  \n");
 			sql.append(" from   member                                    \n");
-			if(!word.isEmpty()) {
-				sql.append("  where "+key+" = ?                      \n");
+			if(key != null && !key.equals("all") && word !=null && !word.trim().equals("")) {
+				if(key.equals("name")) {
+					sql.append(" where username like ? \n");
+				}else if(key.equals("email")) {
+					sql.append(" where email like ?  \n");
+				}else if(key.equals("id")) {
+					sql.append(" where userid like ?  \n");
+				}
 			}
-			sql.append(" order by userid \n");
+			sql.append(" order by userid desc limit ?, ? \n");
 			
 			pstmt = conn.prepareStatement(sql.toString());
-			if(!word.isEmpty()) {
-				pstmt.setString(1, "%"+word+"%");
+			
+			int idx = 1;  //? 번호를 위한 변수   => 조건에 따라서 ?의 번호가 달라지므로 변수를 사용한다. 
+			
+			if(key != null && !key.equals("all") && word != null && !word.trim().equals("")) {
+					pstmt.setString(idx++, "%"+word+"%");
 			}
+			
+			pstmt.setInt(idx++, startNo);
+			pstmt.setInt(idx++, interval);
 			
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
@@ -180,9 +196,46 @@ public class MemberDaoImpl implements MemberDao {
 			}
 			
 		} finally {
-			DBUtil.close(rs, pstmt, conn);
+			DBUtil.close(rs, pstmt);
 		}
 		return list;
 	}
 
+	@Override
+	public int totalCount(Connection conn, PageBean bean) throws SQLException {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			String key = bean.getKey();
+			String word = bean.getWord();
+			int startNo = bean.getStartNo();
+			int interval = bean.getInterval();
+			
+			StringBuilder sql = new StringBuilder();
+			sql.append(" select count(*) as cnt from member  \n");
+			if(key != null && !key.equals("all") && word !=null && !word.trim().equals("")) {
+				if(key.equals("name")) {
+					sql.append(" where username like ? \n");
+				}else if(key.equals("email")) {
+					sql.append(" where email like ?  \n");
+				}else if(key.equals("id")) {
+					sql.append(" where userid like ?  \n");
+				}
+			}
+			pstmt = conn.prepareStatement(sql.toString());
+			
+			if(key != null && !key.equals("all") && word != null && !word.trim().equals("")) {
+					pstmt.setString(1, "%"+word+"%");				
+			}
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getInt("cnt");
+			}
+			
+		} finally {
+			DBUtil.close(rs);
+			DBUtil.close(pstmt);
+		}
+		return 1;
+	}
 }

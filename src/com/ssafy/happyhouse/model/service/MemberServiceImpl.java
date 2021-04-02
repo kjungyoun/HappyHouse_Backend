@@ -1,10 +1,15 @@
 package com.ssafy.happyhouse.model.service;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 import com.ssafy.happyhouse.model.MemberDto;
 import com.ssafy.happyhouse.model.MemberException;
+import com.ssafy.happyhouse.model.PageBean;
 import com.ssafy.happyhouse.model.dao.MemberDaoImpl;
+import com.ssafy.happyhouse.util.DBUtil;
+import com.ssafy.happyhouse.util.PageUtility;
 
 public class MemberServiceImpl implements MemberService {
 
@@ -56,8 +61,20 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<MemberDto> searchAll(String key, String word) throws Exception {
-		return MemberDaoImpl.getMemberDao().searchAll(key, word);
+	public List<MemberDto> searchAll(PageBean bean) throws Exception {
+		Connection conn = null;
+		try {
+			conn = DBUtil.getConnection();
+			int total = MemberDaoImpl.getMemberDao().totalCount(conn, bean);
+			PageUtility util = new PageUtility(bean.getInterval(), total, bean.getPageNo(), "images/");
+			bean.setPageLink(util.getPageBar());
+			return MemberDaoImpl.getMemberDao().searchAll(conn,bean);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new MemberException("회원 목록 조회중 오류 발생");
+		}finally {
+			DBUtil.close(conn);
+		}
 	}
 
 }
