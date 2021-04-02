@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.ssafy.happyhouse.model.MemberDto;
+import com.ssafy.happyhouse.model.PageBean;
+import com.ssafy.happyhouse.model.service.HouseServiceImpl;
 import com.ssafy.happyhouse.model.service.MemberServiceImpl;
 
 @WebServlet("/main")
@@ -50,6 +52,18 @@ public class MainController extends HttpServlet {
 					url = deleteMember(request, response);
 				}else if(action.equals("memberList")) {
 					url = memberList(request, response);
+				}else if(action.equals("search")) {
+					url = search(request,response);
+				}else if(action.equals("")) {
+
+				}else if(action.equals("")) {
+
+				}else if(action.equals("")) {
+
+				}else if(action.equals("")) {
+
+				}else if(action.equals("")) {
+
 				}
 			}
 		} catch (Exception e) {
@@ -166,6 +180,21 @@ public class MainController extends HttpServlet {
 			out.flush();
 		}
 		return url;
+	}
+	private String search(HttpServletRequest request, HttpServletResponse response) {
+		String path = "donginfo.jsp";
+		String key = request.getParameter("key");
+		String word = request.getParameter("word");
+		String pageNo = request.getParameter("pageNo");
+		
+		System.out.println("pageNo>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+pageNo);
+		
+		PageBean bean = new PageBean(key,word,pageNo);
+		request.setAttribute("list", HouseServiceImpl.getHouseService().searchHouse(bean));
+		request.setAttribute("bean", bean);
+		return path;
+		
+		
 	}
 
 }

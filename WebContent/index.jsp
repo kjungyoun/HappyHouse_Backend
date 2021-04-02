@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="root" value="${pageContext.request.contextPath}"/>
+<% String root = request.getContextPath(); %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -223,11 +224,12 @@
             <div class="tab-content">
               <div class="tab-pane active show" id="map">
 
-                <form>
+                <form method="get" action="<%=root%>/main">
+                <input type="hidden" name="action" value="searchAll">
                   <div class="form-group d-inline-block">
-                    <select class="form-control" id="sel1">
-                      <option disabled selected>시/도</option>
-                      <option>서울시</option>
+                    <select class="form-control" id="sel1"name="key1">
+                      <option disabled selected value="all">시/도</option>
+                      <option >서울시</option>
                       <option>경기도</option>
                       <option>인천시</option>
                     </select>
@@ -248,6 +250,7 @@
                       <option>돈의동</option>
                     </select>
                   </div>
+                  
                   <div class="form-group d-inline-block">
                     <button type="submit" class="btn btn-primary mb-1">검색</button>
                   </div>
@@ -257,46 +260,48 @@
                   width="600" height="450" style="border: 0;"> </iframe>
               </div>
               <div class="tab-pane" id="detail">
+              <form method="get" action="<%=root%>/main">
+              <input type="hidden" name="action" value="search">
+              <div class="form-group d-inline-block">
+                    <button type="submit" class="btn btn-primary mb-1">상세 검색하러 가기</button>
+                  </div>
+              </form>
               <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3168.5607561223096!2d126.74783201543875!3d37.423855740043976!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b7b13aab9ed93%3A0x3abb0d0829c86fdb!2z7Iqk7YOA67KF7IqkIOyduOyynOyEnOywveygkA!5e0!3m2!1sko!2skr!4v1615476247568!5m2!1sko!2skr"
                   width="600" height="450" style="border: 0;"> </iframe>
               </div>
               <div class="tab-pane" id="srcdong">
                 <div class="container mt-3">
+                  <form method="post" action="<%=root%>/main">
+                  <input type="hidden" name="action" value="search">
+                  <input type="hidden" name="key" value="dong">
                   <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3168.5607561223096!2d126.74783201543875!3d37.423855740043976!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b7b13aab9ed93%3A0x3abb0d0829c86fdb!2z7Iqk7YOA67KF7IqkIOyduOyynOyEnOywveygkA!5e0!3m2!1sko!2skr!4v1615476247568!5m2!1sko!2skr"
                     width="600" height="300" style="border: 0;"> </iframe>
                   <div class="input-group mb-3 mt-2">
-                    <input type="text" class="form-control" value="서창동">
+                    <input type="text" class="form-control" name="word" value="">
                     <div class="input-group-append">
                       <button class="btn btn-success" type="submit">검색</button>
                     </div>
                   </div>
-                  <select multiple class="form-control" id="sel2" name="sellist2">
-                    <option>경상남동 양산시 서창동</option>
-                    <option>광주광역시 서구 서창동</option>
-                    <option>인천광역시 남동구 장수서창동</option>
-                  </select>
+                  </form>
                 </div>
               </div>
               <div class="tab-pane" id="srcapt">
                 <div class="container mt-3">
+                <form method="post" action="<%=root%>/main">
+                <input type="hidden" name="action" value="search">
+                <input type="hidden" name="key" value="AptName">
                   <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3168.5607561223096!2d126.74783201543875!3d37.423855740043976!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357b7b13aab9ed93%3A0x3abb0d0829c86fdb!2z7Iqk7YOA67KF7IqkIOyduOyynOyEnOywveygkA!5e0!3m2!1sko!2skr!4v1615476247568!5m2!1sko!2skr"
                     width="600" height="300" style="border: 0;"> </iframe>
                   <div class="input-group mb-3 mt-2">
-                    <input type="text" class="form-control" value="e편한세상">
+                    <input type="text" class="form-control" name="word" value="">
                     <div class="input-group-append">
                       <button class="btn btn-success" type="submit">검색</button>
                     </div>
                   </div>
-                  <select multiple class="form-control" id="sel2" name="sellist2">
-                    <option>역곡4차E편한세상아파트</option>
-                    <option>역곡대림e편한세상5차아파트</option>
-                    <option>역곡대림e편한세상3차아파트</option>
-                    <option>E편한세상2차.예원아파트</option>
-                    <option>역곡5차E편한세상 입주자대표회의</option>
-                  </select>
+                  </form>
                 </div>
               </div>
             </div>
@@ -304,132 +309,7 @@
         </div>
       </div>
     </section><!-- End Features Section -->
-    <!-- Result Section -->
-	<section class="features section-bg">
-		<div class="container">
-			<div class="section-title" data-aos="fade-up">
-				<h2>검색 결과</h2>
-			</div>
-			<div class="sidebar" id="dealinfo">
-				<div class="block clearfix" id="houseInfo">
-					<h3 class="title">거래 정보</h3>
-					<div class="separator-2"></div>
-					<div class="media margin-clear">
-						<div class="media-body">
-							<h4>
-								<a href="javascript:moveMap(37.601645,127.024854,17);">구현대</a>
-							</h4>
-							<h6 class="media-heading" id="deal">거래금액 : 32,750만원</h6>
-							<h6 class="media-heading" id="deal">면적: 66.02</h6>
-							<p class="small margin-clear">
-								<i class="fa fa-calendar pr-10"></i>2019. 12. 5
-							</p>
-						</div>
-					</div>
-					<hr>
-					<div class="media margin-clear">
-						<div class="media-body">
-							<h4>
-								<a href="javascript:moveMap(37.6005277,127.023636,17);">길음역금호어울림센터힐</a>
-							</h4>
-							<h6 class="media-heading" id="deal">거래금액 : 98,000만원</h6>
-							<h6 class="media-heading" id="deal">면적: 119.56</h6>
-							<p class="small margin-clear">
-								<i class="fa fa-calendar pr-10"></i>2019. 12. 16
-							</p>
-						</div>
-					</div>
-					<hr>
-					<div class="media margin-clear">
-						<div class="media-body">
-							<h4>
-								<a href="javascript:moveMap(37.5972816,127.0208682,17);">대성유니드(641-0)</a>
-							</h4>
-							<h6 class="media-heading" id="deal">거래금액 : 56,400만원</h6>
-							<h6 class="media-heading" id="deal">면적: 84.93</h6>
-							<p class="small margin-clear">
-								<i class="fa fa-calendar pr-10"></i>2019. 12. 10
-							</p>
-						</div>
-					</div>
-					<hr>
-					<div class="media margin-clear">
-						<div class="media-body">
-							<h4>
-								<a href="javascript:moveMap(37.5960076,127.0231576,17);">돈암동
-									풍림아파트 101~105동</a>
-							</h4>
-							<h6 class="media-heading" id="deal">거래금액 : 49,900만원</h6>
-							<h6 class="media-heading" id="deal">면적: 84.68</h6>
-							<p class="small margin-clear">
-								<i class="fa fa-calendar pr-10"></i>2019. 12. 19
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="sidebar" id="detailinfo" style="display:none">
-				<div class="block clearfix" id="detailhouseInfo">
-					<h3 class="title">상세 거래 정보</h3>
-					<div class="separator-2"></div>
-					<div class="media margin-clear">
-						<div class="media-body">
-							<h4>
-								<a href="javascript:moveMap(37.601645,127.024854,17);">구현대</a>
-							</h4>
-							<h6 class="media-heading" id="deal">거래금액 : 32,750만원</h6>
-							<h6 class="media-heading" id="deal">면적: 66.02</h6>
-							<p class="small margin-clear">
-								<i class="fa fa-calendar pr-10"></i>2019. 12. 5
-							</p>
-						</div>
-					</div>
-					<hr>
-					<div class="media margin-clear">
-						<div class="media-body">
-							<h4>
-								<a href="javascript:moveMap(37.6005277,127.023636,17);">길음역금호어울림센터힐</a>
-							</h4>
-							<h6 class="media-heading" id="deal">거래금액 : 98,000만원</h6>
-							<h6 class="media-heading" id="deal">면적: 119.56</h6>
-							<p class="small margin-clear">
-								<i class="fa fa-calendar pr-10"></i>2019. 12. 16
-							</p>
-						</div>
-					</div>
-					<hr>
-					<div class="media margin-clear">
-						<div class="media-body">
-							<h4>
-								<a href="javascript:moveMap(37.5972816,127.0208682,17);">대성유니드(641-0)</a>
-							</h4>
-							<h6 class="media-heading" id="deal">거래금액 : 56,400만원</h6>
-							<h6 class="media-heading" id="deal">면적: 84.93</h6>
-							<p class="small margin-clear">
-								<i class="fa fa-calendar pr-10"></i>2019. 12. 10
-							</p>
-						</div>
-					</div>
-					<hr>
-					<div class="media margin-clear">
-						<div class="media-body">
-							<h4>
-								<a href="javascript:moveMap(37.5960076,127.0231576,17);">돈암동
-									풍림아파트 101~105동</a>
-							</h4>
-							<h6 class="media-heading" id="deal">거래금액 : 49,900만원</h6>
-							<h6 class="media-heading" id="deal">면적: 84.68</h6>
-							<p class="small margin-clear">
-								<i class="fa fa-calendar pr-10"></i>2019. 12. 19
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
-
-		</div>
-	</section>
-	
+   
     <!-- ======= Team Section ======= -->
     <section id="team" class="team">
       <div class="container">
